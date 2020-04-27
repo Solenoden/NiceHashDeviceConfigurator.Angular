@@ -17,7 +17,13 @@ import {DragDropDirective} from './directives/drag-drop-file';
     DragDropDirective
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
