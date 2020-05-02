@@ -14,9 +14,14 @@ export class ConfigureDeviceComponent implements OnInit {
 
   selectedGPU: GPU;
 
+  private element = {
+    dynamicDownload: null as HTMLElement
+  };
+
   constructor(
     private storageService: StorageService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.getConfigFile();
@@ -50,6 +55,93 @@ export class ConfigureDeviceComponent implements OnInit {
 
   toggleAlgorithmEnabled(index) {
     this.selectedGPU.algorithms[index].enabled = !this.selectedGPU.algorithms[index].enabled;
+  }
+
+  formToConfigFile() {
+    let configFile = {
+      detected_devices: []
+    };
+
+    for (let gpu of this.device.gpu) {
+      let configFileGpu = {
+        name: gpu.name,
+        device_id: gpu.deviceId,
+        enabled: gpu.enabled,
+        active: gpu.active,
+        selected_power_mode: gpu.selectedPowerMode,
+        algorithms: []
+      };
+
+      let algorithms = [];
+      for (let currentAlgorithm of gpu.algorithms) {
+        let algorithm = {
+          miner: currentAlgorithm.miner,
+          algorithm_id: currentAlgorithm.algorithmId,
+          enabled: currentAlgorithm.enabled,
+          power: []
+        };
+
+        let powerModes = [];
+        for (let currentPowerMode of currentAlgorithm.powerModes) {
+          let powerMode = {
+            mode: currentPowerMode.mode,
+            speed: {},
+            power_use: currentPowerMode.powerUse,
+            extra_parameters: currentPowerMode.extraParameters,
+            tdp: currentPowerMode.tdp,
+            core_clocks: currentPowerMode.coreClocks,
+            memory_clocks: currentPowerMode.memoryClocks,
+          };
+
+          powerMode.speed = {
+            hash_rates: currentPowerMode.powerSpeed.hashRates,
+            measured_type: currentPowerMode.powerSpeed.measuredType,
+            saved_at: currentPowerMode.powerSpeed.savedAt
+          };
+
+          powerModes.push(powerMode);
+        }
+
+        algorithm.power.push(powerModes);
+
+        algorithms.push(algorithm);
+      }
+
+      configFileGpu.algorithms = algorithms;
+
+      configFile.detected_devices.push(configFileGpu);
+    }
+
+    return configFile;
+  }
+
+  downloadConfigFile() {
+    let configFile = this.formToConfigFile();
+
+    this.dynamicDownloadJson(JSON.stringify(configFile));
+  }
+
+  dynamicDownloadJson(data) {
+    this.dynamicDownloadByHtmlTag({
+      fileName: 'device_settings.json',
+      text: JSON.stringify(data)
+    });
+  }
+
+  private dynamicDownloadByHtmlTag(arg: {
+    fileName: string,
+    text: string
+  }) {
+    if (!this.element.dynamicDownload) {
+      this.element.dynamicDownload = document.createElement('a');
+    }
+    const element = this.element.dynamicDownload;
+    const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+    element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(JSON.parse(arg.text))}`);
+    element.setAttribute('download', arg.fileName);
+
+    let event = new MouseEvent('click');
+    element.dispatchEvent(event);
   }
 
 }

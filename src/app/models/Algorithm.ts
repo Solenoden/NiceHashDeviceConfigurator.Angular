@@ -14,6 +14,6 @@ export class Algorithm {
   public enabled: boolean = undefined;
 
   @JsonProperty('power', [PowerMode], true)
-  public power: PowerMode[] = undefined;
+  public powerModes: PowerMode[] = undefined;
 
 }
