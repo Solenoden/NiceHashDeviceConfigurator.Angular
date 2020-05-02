@@ -1,8 +1,8 @@
 import {JsonObject, JsonProperty} from 'json2typescript';
-import {PowerSettings} from './PowerSettings';
+import {PowerMode} from './PowerMode';
 
-@JsonObject('AlgorithmSettings')
-export class AlgorithmSettings {
+@JsonObject('Algorithm')
+export class Algorithm {
 
   @JsonProperty('miner', String, true)
   public miner: string = undefined;
@@ -13,7 +13,7 @@ export class AlgorithmSettings {
   @JsonProperty('enabled', Boolean, true)
   public enabled: boolean = undefined;
 
-  @JsonProperty('power', [PowerSettings], true)
-  public power: PowerSettings[] = undefined;
+  @JsonProperty('power', [PowerMode], true)
+  public power: PowerMode[] = undefined;
 
 }

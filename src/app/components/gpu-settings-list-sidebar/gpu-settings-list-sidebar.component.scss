@@ -1,0 +1,44 @@
+#sidebar {
+  float: left;
+  height: 100%;
+  background-color: #3B3B3B;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  position: fixed;
+  border-top: 1px solid #333333;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+
+  .gpu-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid #333333;
+    text-align: center;
+    color: white;
+
+    p {
+      font-size: 14px;
+      margin-bottom: 0;
+      margin-top: 10px;
+    }
+
+    div {
+      margin: auto;
+      padding: 10px;
+    }
+  }
+
+  .gpu-item:hover {
+    cursor: pointer;
+    background-color: #5d5d5d;
+  }
+
+  .selected {
+    border-right: 3px solid yellow;
+
+    div {
+      padding-right: 7px;
+    }
+  }
+}

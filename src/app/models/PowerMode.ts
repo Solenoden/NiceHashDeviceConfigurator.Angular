@@ -1,18 +1,17 @@
 import {JsonObject, JsonProperty} from 'json2typescript';
-import {POWER_MODE} from '../enums/PowerMode';
 import {PowerSpeed} from './PowerSpeed';
 
-@JsonObject('PowerSettings')
-export class PowerSettings {
+@JsonObject('PowerMode')
+export class PowerMode {
 
-  @JsonProperty('mode', POWER_MODE, true)
-  public mode: POWER_MODE = undefined;
+  @JsonProperty('mode', String, true)
+  public mode: string = undefined;
 
   @JsonProperty('speed', PowerSpeed, true)
   public powerSpeed: PowerSpeed = undefined;
 
   @JsonProperty('power_use', Number, true)
-  public powerUse: boolean = undefined;
+  public powerUse: number = undefined;
 
   @JsonProperty('extra_parameters', [String], true)
   public extraParameters: string[] = undefined;

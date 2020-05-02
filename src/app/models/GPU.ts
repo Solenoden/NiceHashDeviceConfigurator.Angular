@@ -1,9 +1,8 @@
 import {JsonObject, JsonProperty} from 'json2typescript';
-import {AlgorithmSettings} from './AlgorithmSettings';
-import {POWER_MODE} from '../enums/PowerMode';
+import {Algorithm} from './Algorithm';
 
-@JsonObject('GpuSettings')
-export class GpuSettings {
+@JsonObject('GPU')
+export class GPU {
 
   @JsonProperty('name', String, true)
   public name: string = undefined;
@@ -20,7 +19,7 @@ export class GpuSettings {
   @JsonProperty('selected_power_mode', String, true)
   public selectedPowerMode: string = undefined;
 
-  @JsonProperty('algorithms', [AlgorithmSettings], true)
-  public algorithm: AlgorithmSettings[] = undefined;
+  @JsonProperty('algorithms', [Algorithm], true)
+  public algorithms: Algorithm[] = undefined;
 
 }

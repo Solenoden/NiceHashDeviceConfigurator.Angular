@@ -1,0 +1,80 @@
+mat-card {
+  min-width: 250px;
+  width: 75%;
+  min-height: 250px;
+  padding: 25px;
+  margin: 50px auto 0 auto;
+  background-color: #4B4B4B;
+  color: white;
+
+  .card-title {
+    font-size: 22px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    //border-bottom: 1px solid #707070;
+  }
+
+  .card-header {
+    display: flex;
+
+    #gpu-status {
+      margin-left: auto;
+      display: flex;
+
+      mat-icon {
+        margin: auto 5px auto 0;
+        font-size: 32px;
+        width: fit-content;
+        height: fit-content;
+      }
+
+      .icon-green {
+        color: green;
+      }
+
+      .icon-red {
+        color: red;
+      }
+    }
+  }
+
+  .card-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .algorithm {
+    background-color: #333333;
+    padding: 5px;
+    height: 75px;
+    width: 125px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+
+    div {
+      margin: auto;
+      text-transform: capitalize;
+
+      p {
+        text-align: center;
+      }
+    }
+  }
+
+  .algorithm-enabled {
+    border: 1px solid green;
+  }
+
+  .algorithm-disabled {
+    border: 1px solid red;
+  }
+
+  .algorithm:hover {
+    background-color: #3B3B3B;
+    cursor: pointer;
+  }
+
+}

@@ -44,3 +44,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: black;
   }
 }
+
+.row {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
