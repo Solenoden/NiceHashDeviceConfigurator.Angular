@@ -8,7 +8,7 @@ export class StorageService {
   private ITEM_CONFIG_FILE = 'configFile';
 
   setConfigFile(configFile: any) {
-    sessionStorage.setItem(this.ITEM_CONFIG_FILE, JSON.stringify(configFile));
+    sessionStorage.setItem(this.ITEM_CONFIG_FILE, JSON.stringify(JSON.parse(configFile)));
   }
 
   getConfigFile() {

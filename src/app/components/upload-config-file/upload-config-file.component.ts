@@ -24,11 +24,17 @@ export class UploadConfigFileComponent extends BaseComponent implements OnInit {
     const file = event[0];
 
     if (this.validateConfigFile(file)) {
-      this.storageService.setConfigFile(file);
+      const reader = new FileReader();
 
-      this.showMessage('Config file successfully uploaded');
+     reader.onload = () => {
+       this.storageService.setConfigFile(reader.result);
 
-      this.router.navigate(['main/configureDevice']);
+       this.showMessage('Config file successfully uploaded');
+
+       this.router.navigate(['main/configure-device']);
+     };
+
+     reader.readAsText(file);
     } else {
       this.showMessage("Invalid config file. Please upload your device's device_settings.json file", MESSAGE_TYPE.ERROR);
     }
