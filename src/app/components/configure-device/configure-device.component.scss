@@ -78,3 +78,21 @@ mat-card {
   }
 
 }
+
+#device-bar {
+  background-color: #4B4B4B;
+  color: white;
+  padding: 20px;
+  justify-content: space-between;
+
+  span {
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  button {
+    background-color: yellow;
+    color: black;
+  }
+}

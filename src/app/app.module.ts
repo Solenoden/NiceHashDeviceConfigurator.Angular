@@ -6,7 +6,7 @@ import {UploadConfigFileComponent} from './components/upload-config-file/upload-
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {AppRoutingModule} from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatCardModule, MatIconModule, MatInputModule, MatSnackBarModule, MatTooltipModule} from '@angular/material';
+import {MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatSnackBarModule, MatTooltipModule} from '@angular/material';
 import {DragDropDirective} from './directives/drag-drop-file';
 import { ConfigureDeviceComponent } from './components/configure-device/configure-device.component';
 import { GpuSettingsListSidebarComponent } from './components/gpu-settings-list-sidebar/gpu-settings-list-sidebar.component';
@@ -30,6 +30,7 @@ import { GpuSettingsListSidebarComponent } from './components/gpu-settings-list-
     MatSnackBarModule,
     MatTooltipModule,
     MatInputModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

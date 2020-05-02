@@ -1,43 +1,56 @@
-<div class="row">
-  <app-gpu-settings-list-sidebar [device]="device"
-                                 (onSelect)="selectGPU($event)"></app-gpu-settings-list-sidebar>
-  <div style="width: 150px"></div>
+<div class="column" style="height: calc(100vh - 49px);">
+  <div class="row" id="device-bar">
+    <div class="row">
+      <span>Current Device - {{device.gpu.length}} Graphics Cards</span>
+    </div>
 
-  <mat-card>
-    <div class="card-header">
-      <span class="card-title">{{selectedGPU.name}}</span>
+    <div class="row">
+    </div>
 
-      <span id="gpu-status">
+    <div class="row">
+      <button mat-flat-button>Save & Download</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <app-gpu-settings-list-sidebar [device]="device"
+                                   (onSelect)="selectGPU($event)"></app-gpu-settings-list-sidebar>
+    <div style="width: 150px"></div>
+
+    <mat-card>
+      <div class="card-header">
+        <span class="card-title">{{selectedGPU.name}}</span>
+
+        <span id="gpu-status">
         <mat-icon *ngIf="selectedGPU.enabled" class="icon-green" matTooltip="GPU is enabled" matTooltipPosition="above">check</mat-icon>
         <mat-icon *ngIf="!selectedGPU.enabled" class="icon-red" matTooltip="GPU is disabled" matTooltipPosition="above">clear</mat-icon>
 
         <mat-icon *ngIf="selectedGPU.active" class="icon-green" matTooltip="GPU is active" matTooltipPosition="above">check</mat-icon>
         <mat-icon *ngIf="!selectedGPU.active" class="icon-red" matTooltip="GPU is inactive" matTooltipPosition="above">clear</mat-icon>
       </span>
-    </div>
+      </div>
 
-    <hr>
+      <hr>
 
-    <div class="card-body">
-      <p>{{'Device ID: ' + selectedGPU.deviceId}}</p>
-      <p>{{'Power Mode: ' + selectedGPU.selectedPowerMode}}</p>
+      <div class="card-body">
+        <p>{{'Device ID: ' + selectedGPU.deviceId}}</p>
+        <p>{{'Power Mode: ' + selectedGPU.selectedPowerMode}}</p>
 
-      <div class="column">
-        <p>Algorithms</p>
+        <div class="column">
+          <p>Algorithms</p>
 
-        <div class="row" style="flex-wrap: wrap">
-          <div *ngFor="let algorithm of selectedGPU.algorithms; let i = index;" [className]="getAlgorithmClasses(i)" (click)="toggleAlgorithmEnabled(i)">
-            <div>
-              <p>{{algorithm.miner}}</p>
-              <p>{{algorithm.algorithmId[0]}}</p>
+          <div class="row" style="flex-wrap: wrap">
+            <div *ngFor="let algorithm of selectedGPU.algorithms; let i = index;" [className]="getAlgorithmClasses(i)" (click)="toggleAlgorithmEnabled(i)">
+              <div>
+                <p>{{algorithm.miner}}</p>
+                <p>{{algorithm.algorithmId[0]}}</p>
+              </div>
+
             </div>
-
           </div>
         </div>
       </div>
-    </div>
 
-  </mat-card>
+    </mat-card>
+  </div>
 </div>
-
-
