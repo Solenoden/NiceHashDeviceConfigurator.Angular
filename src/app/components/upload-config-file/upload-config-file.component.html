@@ -1,0 +1,12 @@
+<div class="container">
+  <mat-card (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+    <mat-icon>publish</mat-icon>
+    <h1>Drag/Click to Upload Device Config File</h1>
+    <p>this file should be named device_settings.json</p>
+    <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+  </mat-card>
+</div>
+
+
+
+

@@ -1,0 +1,21 @@
+header {
+  width: auto;
+  background-color: #3B3B3B;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+
+  span {
+    padding: 15px 20px;
+  }
+
+  span:hover {
+    background-color: #5d5d5d;
+    cursor: pointer;
+  }
+
+  #configure-device-link {
+    margin-left: auto;
+  }
+}

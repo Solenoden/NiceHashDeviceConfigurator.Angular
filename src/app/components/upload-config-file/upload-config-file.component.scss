@@ -1,0 +1,27 @@
+mat-card {
+  margin: 150px auto auto auto;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  width: fit-content;
+  background-color: #4B4B4B;
+  color: white;
+  justify-content: center;
+  text-align: center;
+
+  h1 {
+    font-size: 22px;
+  }
+
+  mat-icon {
+    font-size: 72px;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+  }
+}
+
+mat-card:hover {
+  background-color: #5d5d5d;
+  cursor: pointer;
+}

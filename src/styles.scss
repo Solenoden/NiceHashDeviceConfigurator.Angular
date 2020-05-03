@@ -1,0 +1,55 @@
+html, body {
+  width: 100%;
+  min-height: 100% !important;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+  background-color: #333333;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.main-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-error {
+  background-color: red;
+  color: white;
+
+  button {
+    color: white;
+  }
+}
+
+.message-success {
+  background-color: green;
+  color: white;
+
+  button {
+    color: white;
+  }
+}
+
+.message-warning {
+  background-color: orange;
+  color: black;
+
+  button {
+    color: black;
+  }
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
