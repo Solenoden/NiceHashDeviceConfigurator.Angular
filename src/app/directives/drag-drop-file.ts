@@ -7,7 +7,7 @@ export class DragDropDirective {
 
   @Output() onFileDropped = new EventEmitter<any>();
 
-  @HostBinding('style.opacity') private opacity = '1';
+  @HostBinding('style.opacity') public opacity = '1';
 
   @HostListener('dragover', ['$event']) onDragOver(evt) {
     evt.preventDefault();
