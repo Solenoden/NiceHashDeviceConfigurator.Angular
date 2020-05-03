@@ -102,7 +102,7 @@ export class ConfigureDeviceComponent implements OnInit {
           powerModes.push(powerMode);
         }
 
-        algorithm.power.push(powerModes);
+        algorithm.power.push(...powerModes);
 
         algorithms.push(algorithm);
       }
