@@ -1,0 +1,57 @@
+.container {
+  width: 80%;
+  height: 93.5vh;
+  color: white;
+  background-color: #4444;
+  margin: auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 2%;
+
+  p {
+    line-height: 1.5rem;
+  }
+
+  h1 {
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+
+  h3 {
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  #change-log {
+    padding: 25px;
+    border: 1px solid yellow;
+    border-radius: 8px;
+
+    .change-log-item .change-log-version {
+      display: block;
+      font-weight: 500;
+      font-size: 1.25rem;
+    }
+
+    .change-log-item {
+      margin-bottom: 15px;
+    }
+
+    .change-log-date {
+      height: fit-content;
+      margin-top: auto;
+      margin-bottom: auto;
+      color: #f2f27e;
+    }
+
+    .change-log-bug-fixes {
+      span {
+        color: #f44336;
+      }
+
+      ul {
+        list-style: square;
+      }
+    }
+  }
+}
