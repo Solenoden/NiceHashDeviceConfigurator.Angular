@@ -10,6 +10,7 @@ import {MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatSnackB
 import {DragDropDirective} from './directives/drag-drop-file';
 import { ConfigureDeviceComponent } from './components/configure-device/configure-device.component';
 import { GpuSettingsListSidebarComponent } from './components/gpu-settings-list-sidebar/gpu-settings-list-sidebar.component';
+import { AboutPageComponent } from './components/about-page/about-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { GpuSettingsListSidebarComponent } from './components/gpu-settings-list-
     NavbarComponent,
     DragDropDirective,
     ConfigureDeviceComponent,
-    GpuSettingsListSidebarComponent
+    GpuSettingsListSidebarComponent,
+    AboutPageComponent
   ],
   imports: [
     BrowserModule,

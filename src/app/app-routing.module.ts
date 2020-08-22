@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {UploadConfigFileComponent} from './components/upload-config-file/upload-config-file.component';
 import {ConfigureDeviceComponent} from './components/configure-device/configure-device.component';
+import {AboutPageComponent} from './components/about-page/about-page.component';
 
 const routes: Routes = [
   {
@@ -14,8 +15,12 @@ const routes: Routes = [
         component: UploadConfigFileComponent
       },
       {
-        path:'configure-device',
+        path: 'configure-device',
         component: ConfigureDeviceComponent
+      },
+      {
+        path: 'about',
+        component: AboutPageComponent
       }
     ]
   },

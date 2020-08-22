@@ -1,0 +1,40 @@
+<div class="container">
+    <h1>ABOUT</h1>
+
+    <hr>
+
+    <p>
+      NiceHash Device Configurator is a website which allows you to configure your NiceHash OS Crypto Miner.
+      I started this project because NiceHash OS has no easy way of configuring your device's algorithms and this
+      project aims to fill in those gaps.
+    </p>
+
+    <h3>Change Log</h3>
+
+    <div id="change-log">
+      <div class="change-log-item" *ngFor="let changeLog of changeLogs; let index = index">
+        <div class="row" style="justify-content: space-between">
+          <span class="change-log-version">{{changeLog.version}}</span>
+          <span class="change-log-date">{{changeLog.date}}</span>
+        </div>
+
+        <br>
+
+        <div *ngIf="changeLog.features.length > 0" class="change-log-features">
+          <span>FEATURES</span>
+          <ul>
+            <li *ngFor="let feature of changeLog.features">{{feature}}</li>
+          </ul>
+        </div>
+
+        <div *ngIf="changeLog.bugFixes.length > 0" class="change-log-bug-fixes">
+          <span>BUG FIXES</span>
+          <ul>
+            <li *ngFor="let bugFix of changeLog.bugFixes">{{bugFix}}</li>
+          </ul>
+        </div>
+
+        <hr *ngIf="index !== changeLogs.length - 1">
+      </div>
+    </div>
+</div>

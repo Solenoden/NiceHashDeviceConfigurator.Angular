@@ -54,7 +54,17 @@ export class ConfigureDeviceComponent implements OnInit {
   }
 
   toggleAlgorithmEnabled(index) {
-    this.selectedGPU.algorithms[index].enabled = !this.selectedGPU.algorithms[index].enabled;
+    const algorithmId = this.selectedGPU.algorithms[index].algorithmId[0];
+    const algorithmName = this.selectedGPU.algorithms[index].miner;
+    const isEnabled = !this.selectedGPU.algorithms[index].enabled;
+
+    for (let gpu of this.device.gpu) {
+      for (let algorithm of gpu.algorithms) {
+        if (algorithm.algorithmId[0] === algorithmId && algorithm.miner === algorithmName) {
+          algorithm.enabled = isEnabled;
+        }
+      }
+    }
   }
 
   formToConfigFile() {
