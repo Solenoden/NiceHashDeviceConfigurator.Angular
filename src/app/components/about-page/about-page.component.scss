@@ -5,41 +5,53 @@
   background-color: #4444;
   margin: auto;
   overflow: hidden;
+  box-sizing: border-box;
+  padding: 0 2%;
 
   p {
     line-height: 1.5rem;
   }
 
-  mat-card {
-    width: 80%;
-    background-color: #4B4B4B;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 25px;
-    color: white;
+  h1 {
+    font-weight: 500;
+    margin-bottom: 0;
+  }
 
+  h3 {
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
 
-    h1 {
+  #change-log {
+    padding: 25px;
+    border: 1px solid yellow;
+    border-radius: 8px;
+
+    .change-log-item .change-log-version {
+      display: block;
       font-weight: 500;
-      margin-bottom: 0;
+      font-size: 1.25rem;
     }
 
-    h3 {
-      font-weight: 500;
-      margin-bottom: 10px;
+    .change-log-item {
+      margin-bottom: 15px;
     }
 
-    #change-log {
-      padding: 25px;
-      border: 1px solid yellow;
-      border-radius: 8px;
+    .change-log-date {
+      height: fit-content;
+      margin-top: auto;
+      margin-bottom: auto;
+      color: #f2f27e;
+    }
 
-      .change-log-item .change-log-title {
-        display: block;
-        font-weight: 500;
-        font-size: 1.25rem;
+    .change-log-bug-fixes {
+      span {
+        color: #f44336;
+      }
+
+      ul {
+        list-style: square;
       }
     }
-
   }
 }
