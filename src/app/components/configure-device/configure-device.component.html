@@ -4,7 +4,9 @@
       <span>Current Device - {{device.detected_devices.length}} Graphics Cards</span>
     </div>
 
-    <div class="row"></div>
+    <div class="row">
+      <mat-checkbox [(ngModel)]="shouldPerformForAllGpus">Perform for all GPUs</mat-checkbox>
+    </div>
 
     <div class="row">
       <button mat-flat-button (click)="downloadConfigFile()">Save & Download</button>

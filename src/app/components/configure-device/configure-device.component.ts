@@ -11,8 +11,8 @@ import {GPU} from '../../models/Gpu';
 })
 export class ConfigureDeviceComponent implements OnInit {
   device: Device;
-
   selectedGPU: GPU;
+  shouldPerformForAllGpus: boolean = true;
 
   private element = {
     dynamicDownload: null as HTMLElement
@@ -50,16 +50,20 @@ export class ConfigureDeviceComponent implements OnInit {
   }
 
   toggleAlgorithmEnabled(index) {
-    const algorithmId = this.selectedGPU.algorithms[index].algorithm_id[0];
-    const algorithmName = this.selectedGPU.algorithms[index].miner;
-    const isEnabled = !this.selectedGPU.algorithms[index].enabled;
+    if (this.shouldPerformForAllGpus) {
+      const algorithmId = this.selectedGPU.algorithms[index].algorithm_id[0];
+      const algorithmName = this.selectedGPU.algorithms[index].miner;
+      const isEnabled = !this.selectedGPU.algorithms[index].enabled;
 
-    for (let gpu of this.device.detected_devices) {
-      for (let algorithm of gpu.algorithms) {
-        if (algorithm.algorithm_id[0] === algorithmId && algorithm.miner === algorithmName) {
-          algorithm.enabled = isEnabled;
+      for (let gpu of this.device.detected_devices) {
+        for (let algorithm of gpu.algorithms) {
+          if (algorithm.algorithm_id[0] === algorithmId && algorithm.miner === algorithmName) {
+            algorithm.enabled = isEnabled;
+          }
         }
       }
+    } else {
+      this.selectedGPU.algorithms[index].enabled = !this.selectedGPU.algorithms[index].enabled;
     }
   }
 
