@@ -3,6 +3,8 @@ import {MatSnackBar} from '@angular/material';
 import {BaseComponent, MESSAGE_TYPE} from '../../base-component';
 import {StorageService} from '../../services/storage.service';
 import {Router} from '@angular/router';
+import {JsonConvert, ValueCheckingMode} from 'json2typescript';
+import {Device} from '../../models/Device';
 
 @Component({
   selector: 'app-upload-config-file',
@@ -15,7 +17,9 @@ export class UploadConfigFileComponent extends BaseComponent implements OnInit {
     protected snackBar: MatSnackBar,
     private storageService: StorageService,
     private router: Router
-  ) { super(snackBar) }
+  ) {
+    super(snackBar);
+  }
 
   ngOnInit() {
   }
@@ -23,25 +27,23 @@ export class UploadConfigFileComponent extends BaseComponent implements OnInit {
   uploadFile(event) {
     const file = event[0];
 
-    if (this.validateConfigFile(file)) {
-      const reader = new FileReader();
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        let jsonConvert = new JsonConvert();
+        jsonConvert.valueCheckingMode = ValueCheckingMode.ALLOW_NULL;
+        const device: Device = jsonConvert.deserializeObject(JSON.parse(reader.result as string), Device);
 
-     reader.onload = () => {
-       this.storageService.setConfigFile(reader.result);
+        this.storageService.setConfigFile(device);
 
-       this.showMessage('Config file successfully uploaded');
+        this.showMessage('Config file successfully uploaded');
+        this.router.navigate(['main/configure-device']);
+      } catch (error) {
+        console.error(error);
+        this.showMessage('Invalid config file. Please upload your device\'s device_settings.json file', MESSAGE_TYPE.ERROR);
+      }
+    };
 
-       this.router.navigate(['main/configure-device']);
-     };
-
-     reader.readAsText(file);
-    } else {
-      this.showMessage("Invalid config file. Please upload your device's device_settings.json file", MESSAGE_TYPE.ERROR);
-    }
+    reader.readAsText(file);
   }
-
-  validateConfigFile(file: any) {
-    return true;
-  }
-
 }

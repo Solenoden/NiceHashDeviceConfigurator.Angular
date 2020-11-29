@@ -1,10 +1,8 @@
 import {JsonObject, JsonProperty} from 'json2typescript';
 import {GPU} from './GPU';
 
-@JsonObject("Device")
+@JsonObject('Device')
 export class Device {
-
   @JsonProperty('detected_devices', [GPU], true)
-  public gpu: GPU[] = undefined;
-
+  public detected_devices: GPU[] = undefined;
 }
