@@ -2,14 +2,12 @@ import {Any, JsonObject, JsonProperty} from 'json2typescript';
 
 @JsonObject('PowerSpeed')
 export class PowerSpeed {
-
-  @JsonProperty('hash_rates', [Any], true)
-  public hashRates: Any[] = undefined;
+  @JsonProperty('hash_rates', [Number], true)
+  public hash_rates: number[] = undefined;
 
   @JsonProperty('measured_type', String, true)
-  public measuredType: string = undefined;
+  public measured_type: string = undefined;
 
   @JsonProperty('saved_at', String, true)
-  public savedAt: string = undefined;
-
+  public saved_at: string = undefined;
 }

@@ -1,5 +1,5 @@
 <div id="sidebar">
-  <div *ngFor="let gpu of device.gpu; let i = index" [className]="getGpuItemStyleClasses(i)" (click)="selectGPU(i)">
+  <div *ngFor="let gpu of device.detected_devices; let i = index" [className]="getGpuItemStyleClasses(i)" (click)="selectGPU(i)">
     <div>
       <mat-icon>developer_board</mat-icon>
 

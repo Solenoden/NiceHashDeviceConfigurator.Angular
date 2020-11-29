@@ -1,14 +1,13 @@
-import {JsonObject, JsonProperty} from 'json2typescript';
+import {Any, JsonObject, JsonProperty} from 'json2typescript';
 import {Algorithm} from './Algorithm';
 
 @JsonObject('GPU')
 export class GPU {
-
   @JsonProperty('name', String, true)
   public name: string = undefined;
 
   @JsonProperty('device_id', String, true)
-  public deviceId: string = undefined;
+  public device_id: string = undefined;
 
   @JsonProperty('enabled', Boolean, true)
   public enabled: boolean = undefined;
@@ -17,9 +16,8 @@ export class GPU {
   public active: boolean = undefined;
 
   @JsonProperty('selected_power_mode', String, true)
-  public selectedPowerMode: string = undefined;
+  public selected_power_mode: string = undefined;
 
-  @JsonProperty('algorithms', [Algorithm], true)
+  @JsonProperty('algorithms', [Any], true)
   public algorithms: Algorithm[] = undefined;
-
 }

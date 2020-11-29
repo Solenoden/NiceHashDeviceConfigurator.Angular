@@ -11,8 +11,8 @@ import {GPU} from '../../models/Gpu';
 })
 export class ConfigureDeviceComponent implements OnInit {
   device: Device;
-
   selectedGPU: GPU;
+  shouldPerformForAllGpus: boolean = true;
 
   private element = {
     dynamicDownload: null as HTMLElement
@@ -28,17 +28,13 @@ export class ConfigureDeviceComponent implements OnInit {
   }
 
   getConfigFile() {
-    let jsonConvert = new JsonConvert();
-    jsonConvert.valueCheckingMode = ValueCheckingMode.ALLOW_NULL;
-
-    const configFileData = this.storageService.getConfigFile();
-    this.device = jsonConvert.deserializeObject(configFileData, Device);
+    this.device = this.storageService.getConfigFile();
 
     this.selectGPU(0);
   }
 
   selectGPU(index) {
-    this.selectedGPU = this.device.gpu[index];
+    this.selectedGPU = this.device.detected_devices[index];
   }
 
   getAlgorithmClasses(index) {
@@ -54,81 +50,25 @@ export class ConfigureDeviceComponent implements OnInit {
   }
 
   toggleAlgorithmEnabled(index) {
-    const algorithmId = this.selectedGPU.algorithms[index].algorithmId[0];
-    const algorithmName = this.selectedGPU.algorithms[index].miner;
-    const isEnabled = !this.selectedGPU.algorithms[index].enabled;
+    if (this.shouldPerformForAllGpus) {
+      const algorithmId = this.selectedGPU.algorithms[index].algorithm_id[0];
+      const algorithmName = this.selectedGPU.algorithms[index].miner;
+      const isEnabled = !this.selectedGPU.algorithms[index].enabled;
 
-    for (let gpu of this.device.gpu) {
-      for (let algorithm of gpu.algorithms) {
-        if (algorithm.algorithmId[0] === algorithmId && algorithm.miner === algorithmName) {
-          algorithm.enabled = isEnabled;
+      for (let gpu of this.device.detected_devices) {
+        for (let algorithm of gpu.algorithms) {
+          if (algorithm.algorithm_id[0] === algorithmId && algorithm.miner === algorithmName) {
+            algorithm.enabled = isEnabled;
+          }
         }
       }
+    } else {
+      this.selectedGPU.algorithms[index].enabled = !this.selectedGPU.algorithms[index].enabled;
     }
-  }
-
-  formToConfigFile() {
-    let configFile = {
-      detected_devices: []
-    };
-
-    for (let gpu of this.device.gpu) {
-      let configFileGpu = {
-        name: gpu.name,
-        device_id: gpu.deviceId,
-        enabled: gpu.enabled,
-        active: gpu.active,
-        selected_power_mode: gpu.selectedPowerMode,
-        algorithms: []
-      };
-
-      let algorithms = [];
-      for (let currentAlgorithm of gpu.algorithms) {
-        let algorithm = {
-          miner: currentAlgorithm.miner,
-          algorithm_id: currentAlgorithm.algorithmId,
-          enabled: currentAlgorithm.enabled,
-          power: []
-        };
-
-        let powerModes = [];
-        for (let currentPowerMode of currentAlgorithm.powerModes) {
-          let powerMode = {
-            mode: currentPowerMode.mode,
-            speed: {},
-            power_use: currentPowerMode.powerUse,
-            extra_parameters: currentPowerMode.extraParameters,
-            tdp: currentPowerMode.tdp,
-            core_clocks: currentPowerMode.coreClocks,
-            memory_clocks: currentPowerMode.memoryClocks,
-          };
-
-          powerMode.speed = {
-            hash_rates: currentPowerMode.powerSpeed.hashRates,
-            measured_type: currentPowerMode.powerSpeed.measuredType,
-            saved_at: currentPowerMode.powerSpeed.savedAt
-          };
-
-          powerModes.push(powerMode);
-        }
-
-        algorithm.power.push(...powerModes);
-
-        algorithms.push(algorithm);
-      }
-
-      configFileGpu.algorithms = algorithms;
-
-      configFile.detected_devices.push(configFileGpu);
-    }
-
-    return configFile;
   }
 
   downloadConfigFile() {
-    let configFile = this.formToConfigFile();
-
-    this.dynamicDownloadJson(JSON.stringify(configFile));
+    this.dynamicDownloadJson(JSON.stringify(this.device));
   }
 
   dynamicDownloadJson(data) {

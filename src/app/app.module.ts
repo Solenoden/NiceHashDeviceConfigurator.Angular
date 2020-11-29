@@ -6,11 +6,20 @@ import {UploadConfigFileComponent} from './components/upload-config-file/upload-
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {AppRoutingModule} from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatSnackBarModule, MatTooltipModule} from '@angular/material';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatTooltipModule
+} from '@angular/material';
 import {DragDropDirective} from './directives/drag-drop-file';
 import { ConfigureDeviceComponent } from './components/configure-device/configure-device.component';
 import { GpuSettingsListSidebarComponent } from './components/gpu-settings-list-sidebar/gpu-settings-list-sidebar.component';
 import { AboutPageComponent } from './components/about-page/about-page.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +42,8 @@ import { AboutPageComponent } from './components/about-page/about-page.component
     MatTooltipModule,
     MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

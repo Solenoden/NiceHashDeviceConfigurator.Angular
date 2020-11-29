@@ -1,10 +1,11 @@
 <div class="column" style="height: calc(100vh - 49px);">
   <div class="row" id="device-bar">
     <div class="row">
-      <span>Current Device - {{device.gpu.length}} Graphics Cards</span>
+      <span>Current Device - {{device.detected_devices.length}} Graphics Cards</span>
     </div>
 
     <div class="row">
+      <mat-checkbox [(ngModel)]="shouldPerformForAllGpus">Perform for all GPUs</mat-checkbox>
     </div>
 
     <div class="row">
@@ -13,11 +14,10 @@
   </div>
 
   <div class="row">
-    <app-gpu-settings-list-sidebar [device]="device"
-                                   (onSelect)="selectGPU($event)"></app-gpu-settings-list-sidebar>
+    <app-gpu-settings-list-sidebar [device]="device" (onSelect)="selectGPU($event)"></app-gpu-settings-list-sidebar>
     <div style="width: 150px"></div>
 
-    <mat-card>
+    <mat-card *ngIf="selectedGPU">
       <div class="card-header">
         <span class="card-title">{{selectedGPU.name}}</span>
 
@@ -33,8 +33,8 @@
       <hr>
 
       <div class="card-body">
-        <p>{{'Device ID: ' + selectedGPU.deviceId}}</p>
-        <p>{{'Power Mode: ' + selectedGPU.selectedPowerMode}}</p>
+        <p>{{'Device ID: ' + selectedGPU.device_id}}</p>
+        <p>{{'Power Mode: ' + selectedGPU.selected_power_mode}}</p>
 
         <div class="column">
           <p>Algorithms</p>
@@ -43,7 +43,7 @@
             <div *ngFor="let algorithm of selectedGPU.algorithms; let i = index;" [className]="getAlgorithmClasses(i)" (click)="toggleAlgorithmEnabled(i)">
               <div>
                 <p>{{algorithm.miner}}</p>
-                <p>{{algorithm.algorithmId[0]}}</p>
+                <p>{{(algorithm.algorithm_id.length > 0) ? algorithm.algorithm_id[0] : ''}}</p>
               </div>
 
             </div>
