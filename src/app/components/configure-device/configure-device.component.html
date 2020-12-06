@@ -9,7 +9,7 @@
     </div>
 
     <div class="row">
-      <button mat-flat-button (click)="downloadConfigFile()">Save & Download</button>
+      <button mat-flat-button color="primary" (click)="downloadConfigFile()">Save & Download</button>
     </div>
   </div>
 
@@ -17,40 +17,58 @@
     <app-gpu-settings-list-sidebar [device]="device" (onSelect)="selectGPU($event)"></app-gpu-settings-list-sidebar>
     <div style="width: 150px"></div>
 
-    <mat-card *ngIf="selectedGPU">
-      <div class="card-header">
-        <span class="card-title">{{selectedGPU.name}}</span>
+    <div class="column">
+      <mat-card *ngIf="selectedGPU" id="device-general-info">
+        <div class="card-header">
+          <span class="card-title">{{selectedGPU.name}}</span>
 
-        <span id="gpu-status">
-        <mat-icon *ngIf="selectedGPU.enabled" class="icon-green" matTooltip="GPU is enabled" matTooltipPosition="above">check</mat-icon>
-        <mat-icon *ngIf="!selectedGPU.enabled" class="icon-red" matTooltip="GPU is disabled" matTooltipPosition="above">clear</mat-icon>
+          <span id="gpu-status">
+            <mat-icon *ngIf="selectedGPU.enabled" class="icon-green" matTooltip="GPU is enabled" matTooltipPosition="above">check</mat-icon>
+            <mat-icon *ngIf="!selectedGPU.enabled" class="icon-red" matTooltip="GPU is disabled" matTooltipPosition="above">clear</mat-icon>
 
-        <mat-icon *ngIf="selectedGPU.active" class="icon-green" matTooltip="GPU is active" matTooltipPosition="above">check</mat-icon>
-        <mat-icon *ngIf="!selectedGPU.active" class="icon-red" matTooltip="GPU is inactive" matTooltipPosition="above">clear</mat-icon>
-      </span>
-      </div>
+            <mat-icon *ngIf="selectedGPU.active" class="icon-green" matTooltip="GPU is active" matTooltipPosition="above">check</mat-icon>
+            <mat-icon *ngIf="!selectedGPU.active" class="icon-red" matTooltip="GPU is inactive" matTooltipPosition="above">clear</mat-icon>
+          </span>
+        </div>
 
-      <hr>
+        <hr/>
 
-      <div class="card-body">
-        <p>{{'Device ID: ' + selectedGPU.device_id}}</p>
-        <p>{{'Power Mode: ' + selectedGPU.selected_power_mode}}</p>
+        <div class="card-body">
+          <p>{{'Device ID: ' + selectedGPU.device_id}}</p>
+          <p>{{'Power Mode: ' + selectedGPU.selected_power_mode}}</p>
+        </div>
+      </mat-card>
 
-        <div class="column">
-          <p>Algorithms</p>
+      <mat-card>
+        <div class="card-header"><div class="card-title">Overclocking</div></div>
 
+        <div class="card-body column">
+          <mat-form-field>
+            <mat-label>Core clocks</mat-label>
+            <input matInput type="number" (change)="changeCoreClocks($event.target.value)" [value]="coreClocksInputValue.toString()">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Memory clocks</mat-label>
+            <input matInput type="number" (change)="changeMemoryClocks($event.target.value)" [value]="memoryClocksInputValue.toString()">
+          </mat-form-field>
+        </div>
+      </mat-card>
+
+      <mat-card>
+        <div class="card-header"><div class="card-title">Algorithms</div></div>
+
+        <div class="card-body">
           <div class="row" style="flex-wrap: wrap">
             <div *ngFor="let algorithm of selectedGPU.algorithms; let i = index;" [className]="getAlgorithmClasses(i)" (click)="toggleAlgorithmEnabled(i)">
               <div>
                 <p>{{algorithm.miner}}</p>
                 <p>{{(algorithm.algorithm_id.length > 0) ? algorithm.algorithm_id[0] : ''}}</p>
               </div>
-
             </div>
           </div>
         </div>
-      </div>
-
-    </mat-card>
+      </mat-card>
+    </div>
   </div>
 </div>

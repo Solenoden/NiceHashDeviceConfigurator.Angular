@@ -1,3 +1,6 @@
+@import '~@angular/material/theming';
+@import 'src/app/theme/theme';
+
 html, body {
   width: 100%;
   min-height: 100% !important;

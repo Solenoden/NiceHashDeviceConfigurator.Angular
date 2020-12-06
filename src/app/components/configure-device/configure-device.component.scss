@@ -1,20 +1,25 @@
 mat-card {
   min-width: 250px;
   width: 75%;
-  min-height: 250px;
   padding: 25px;
-  margin: 50px auto 0 auto;
+  margin: 15px auto 0 auto;
   background-color: #4B4B4B;
   color: white;
 
   .card-title {
     font-size: 22px;
     font-weight: 400;
-    padding-bottom: 10px;
+  }
+
+  .row .card-title {
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
   .card-header {
     display: flex;
+    margin-bottom: 25px;
 
     #gpu-status {
       margin-left: auto;
@@ -78,6 +83,14 @@ mat-card {
 
 }
 
+mat-card:last-of-type {
+  margin-bottom: 15px;
+}
+
+#device-general-info .card-header {
+  margin-bottom: 0;
+}
+
 #device-bar {
   background-color: #4B4B4B;
   color: white;
@@ -91,7 +104,6 @@ mat-card {
   }
 
   button {
-    background-color: yellow;
     color: black;
   }
 
@@ -101,12 +113,16 @@ mat-card {
     margin-top: auto;
     margin-bottom: auto;
   }
+}
 
-  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
-    background-color: yellow !important;
+mat-form-field {
+  max-width: 150px;
+
+  mat-label {
+    color: white;
   }
 
-  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: yellow;
+  ::ng-deep .mat-form-field-underline {
+    background-color: white;
   }
 }

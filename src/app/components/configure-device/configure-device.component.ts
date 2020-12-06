@@ -13,6 +13,8 @@ export class ConfigureDeviceComponent implements OnInit {
   device: Device;
   selectedGPU: GPU;
   shouldPerformForAllGpus: boolean = true;
+  coreClocksInputValue: number;
+  memoryClocksInputValue: number;
 
   private element = {
     dynamicDownload: null as HTMLElement
@@ -35,6 +37,8 @@ export class ConfigureDeviceComponent implements OnInit {
 
   selectGPU(index) {
     this.selectedGPU = this.device.detected_devices[index];
+    this.coreClocksInputValue = (this.selectedGPU.algorithms[0].power[0].core_clocks) ? this.selectedGPU.algorithms[0].power[0].core_clocks : 100;
+    this.memoryClocksInputValue = (this.selectedGPU.algorithms[0].power[0].memory_clocks) ? this.selectedGPU.algorithms[0].power[0].memory_clocks : 100;
   }
 
   getAlgorithmClasses(index) {
@@ -64,6 +68,38 @@ export class ConfigureDeviceComponent implements OnInit {
       }
     } else {
       this.selectedGPU.algorithms[index].enabled = !this.selectedGPU.algorithms[index].enabled;
+    }
+  }
+
+  changeCoreClocks(value: string) {
+    const coreClocks = Number(value);
+
+    if (this.shouldPerformForAllGpus) {
+      this.device.detected_devices.forEach(gpu => {
+        gpu.algorithms.forEach(algorithm => {
+          algorithm.power.forEach(power => power.core_clocks = coreClocks);
+        });
+      });
+    } else {
+      this.selectedGPU.algorithms.forEach(algorithm => {
+        algorithm.power.forEach(power => power.core_clocks = coreClocks);
+      });
+    }
+  }
+
+  changeMemoryClocks(value: string) {
+    const memoryClocks = Number(value);
+
+    if (this.shouldPerformForAllGpus) {
+      this.device.detected_devices.forEach(gpu => {
+        gpu.algorithms.forEach(algorithm => {
+          algorithm.power.forEach(power => power.memory_clocks = memoryClocks);
+        });
+      });
+    } else {
+      this.selectedGPU.algorithms.forEach(algorithm => {
+        algorithm.power.forEach(power => power.memory_clocks = memoryClocks);
+      });
     }
   }
 
