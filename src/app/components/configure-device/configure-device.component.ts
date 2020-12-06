@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Device} from '../../models/Device';
 import {StorageService} from '../../services/storage.service';
-import {JsonConvert, ValueCheckingMode} from 'json2typescript';
 import {GPU} from '../../models/Gpu';
+import {getAlgorithmName} from '../../logic/algorithmLogic';
 
 @Component({
   selector: 'app-configure-device',
@@ -10,9 +10,13 @@ import {GPU} from '../../models/Gpu';
   styleUrls: ['./configure-device.component.scss']
 })
 export class ConfigureDeviceComponent implements OnInit {
+  getAlgorithmName = getAlgorithmName;
+
   device: Device;
   selectedGPU: GPU;
   shouldPerformForAllGpus: boolean = true;
+  coreClocksInputValue: number;
+  memoryClocksInputValue: number;
 
   private element = {
     dynamicDownload: null as HTMLElement
@@ -35,6 +39,8 @@ export class ConfigureDeviceComponent implements OnInit {
 
   selectGPU(index) {
     this.selectedGPU = this.device.detected_devices[index];
+    this.coreClocksInputValue = (this.selectedGPU.algorithms[0].power[0].core_clocks) ? this.selectedGPU.algorithms[0].power[0].core_clocks : 100;
+    this.memoryClocksInputValue = (this.selectedGPU.algorithms[0].power[0].memory_clocks) ? this.selectedGPU.algorithms[0].power[0].memory_clocks : 100;
   }
 
   getAlgorithmClasses(index) {
@@ -67,6 +73,38 @@ export class ConfigureDeviceComponent implements OnInit {
     }
   }
 
+  changeCoreClocks(value: string) {
+    const coreClocks = Number(value);
+
+    if (this.shouldPerformForAllGpus) {
+      this.device.detected_devices.forEach(gpu => {
+        gpu.algorithms.forEach(algorithm => {
+          algorithm.power.forEach(power => power.core_clocks = coreClocks);
+        });
+      });
+    } else {
+      this.selectedGPU.algorithms.forEach(algorithm => {
+        algorithm.power.forEach(power => power.core_clocks = coreClocks);
+      });
+    }
+  }
+
+  changeMemoryClocks(value: string) {
+    const memoryClocks = Number(value);
+
+    if (this.shouldPerformForAllGpus) {
+      this.device.detected_devices.forEach(gpu => {
+        gpu.algorithms.forEach(algorithm => {
+          algorithm.power.forEach(power => power.memory_clocks = memoryClocks);
+        });
+      });
+    } else {
+      this.selectedGPU.algorithms.forEach(algorithm => {
+        algorithm.power.forEach(power => power.memory_clocks = memoryClocks);
+      });
+    }
+  }
+
   downloadConfigFile() {
     this.dynamicDownloadJson(JSON.stringify(this.device));
   }
@@ -78,7 +116,7 @@ export class ConfigureDeviceComponent implements OnInit {
     });
   }
 
-  private dynamicDownloadByHtmlTag(arg: {
+  dynamicDownloadByHtmlTag(arg: {
     fileName: string,
     text: string
   }) {
@@ -93,5 +131,4 @@ export class ConfigureDeviceComponent implements OnInit {
     let event = new MouseEvent('click');
     element.dispatchEvent(event);
   }
-
 }
