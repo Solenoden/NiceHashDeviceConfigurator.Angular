@@ -63,7 +63,7 @@
             <div *ngFor="let algorithm of selectedGPU.algorithms; let i = index;" [className]="getAlgorithmClasses(i)" (click)="toggleAlgorithmEnabled(i)">
               <div>
                 <p>{{algorithm.miner}}</p>
-                <p>{{(algorithm.algorithm_id.length > 0) ? algorithm.algorithm_id[0] : ''}}</p>
+                <p>{{getAlgorithmName(algorithm.algorithm_id[0])}}</p>
               </div>
             </div>
           </div>

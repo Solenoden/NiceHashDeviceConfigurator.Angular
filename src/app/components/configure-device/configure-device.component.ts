@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Device} from '../../models/Device';
 import {StorageService} from '../../services/storage.service';
-import {JsonConvert, ValueCheckingMode} from 'json2typescript';
 import {GPU} from '../../models/Gpu';
+import {getAlgorithmName} from '../../logic/algorithmLogic';
 
 @Component({
   selector: 'app-configure-device',
@@ -10,6 +10,8 @@ import {GPU} from '../../models/Gpu';
   styleUrls: ['./configure-device.component.scss']
 })
 export class ConfigureDeviceComponent implements OnInit {
+  getAlgorithmName = getAlgorithmName;
+
   device: Device;
   selectedGPU: GPU;
   shouldPerformForAllGpus: boolean = true;
@@ -114,7 +116,7 @@ export class ConfigureDeviceComponent implements OnInit {
     });
   }
 
-  private dynamicDownloadByHtmlTag(arg: {
+  dynamicDownloadByHtmlTag(arg: {
     fileName: string,
     text: string
   }) {
@@ -129,5 +131,4 @@ export class ConfigureDeviceComponent implements OnInit {
     let event = new MouseEvent('click');
     element.dispatchEvent(event);
   }
-
 }
