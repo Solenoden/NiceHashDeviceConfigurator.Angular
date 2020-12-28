@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Device} from '../../models/Device';
 import {StorageService} from '../../services/storage.service';
-import {GPU} from '../../models/Gpu';
+import {GPU} from '../../models/GPU';
 import {getAlgorithmName} from '../../logic/algorithmLogic';
 
 @Component({
